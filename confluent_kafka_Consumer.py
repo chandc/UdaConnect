@@ -49,5 +49,5 @@ class UdaConsumer:
             consumer.close()
 
 #RUNNING CONSUMER FOR READING MESSAGE FROM THE KAFKA TOPIC
-my_consumer = UdaConsumer(topic="visits")
+my_consumer = UdaConsumer(topic="visits",group_id="consumer-20")
 my_consumer.start_listener()
