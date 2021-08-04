@@ -3,16 +3,20 @@ from time import sleep
 
 class UdaConsumer:
 
-    def __init__(self, broker="localhost:9092", topic="test-topic", group_id="consumer-1"):
+    def __init__(self, broker="localhost:9092", topic="test-topic", group_id="consumer-2"):
          self.broker = broker
          self.topic = topic
          self.group_id = group_id
+
+         print( self.topic )
 
     def start_listener(self):
         consumer_config = {
             'bootstrap.servers': self.broker,
             'group.id': self.group_id,
-            'auto.offset.reset': 'largest',
+            #'auto.offset.reset': 'largest',
+            'auto.offset.reset':'earliest',
+
             'enable.auto.commit': 'false',
             'max.poll.interval.ms': '86400000'}
 
