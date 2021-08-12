@@ -23,14 +23,14 @@ topic = "visits"
 
 @app.route("/",  methods = ['POST'])
 def whereabout():
-    current_time = str(datetime.now())
+
     location = request.get_json()
-    location['creation_time'] = current_time
-    print(location)
+    # location['creation_time'] created by the database
+    #print(location)
     producer.produce(topic, json.dumps(location),callback=acked)
     #producer.poll(1)
     producer.flush()
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+    return json.dumps({'success, data sent':location,})
 
 
 if __name__ == "__main__":
