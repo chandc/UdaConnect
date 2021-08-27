@@ -15,7 +15,7 @@ kubectl get services
 
 we should see something likes this
 
-![Screen Shot 2021-08-26 at 10.26.49 PM](Screen Shot 2021-08-26 at 10.26.49 PM.png)
+![kafka_services](kafka_services.png)
 
 to test if we can produce and consume messages to and from the Kafka cluster correctly, we need to start the Kafka client in a pod first 
 
@@ -48,5 +48,5 @@ kubectl get po
 
 we should see
 
-![Screen Shot 2021-08-26 at 10.59.35 PM](Screen Shot 2021-08-26 at 10.59.35 PM.png)
+![Kafka_pods](Kafka_pods.png)
 
