@@ -1,4 +1,7 @@
 import os
+
+from typing import List, Type
+
 class BaseConfig:
     CONFIG_NAME = "base"
     USE_MOCK_EQUIVALENCY = False
