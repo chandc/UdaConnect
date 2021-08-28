@@ -12,8 +12,8 @@ DB_PASSWORD = os.environ["DB_PASSWORD"]
 DB_HOST     = os.environ["DB_HOST"]
 DB_PORT     = os.environ["DB_PORT"]
 DB_NAME     = os.environ["DB_NAME"]
-KAFKA_DNS   = os.environ["KAFKA_DNS"]
-KAFKA_TOPIC = os.environ["KAFKA_TOPIC"]
+KAFKA_CONSUMER   = os.environ["KAFKA_DNS"]
+KAFKA_TOPIC      = os.environ["KAFKA_TOPIC"]
 
 SQLALCHEMY_DATABASE_URI = (
         f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
@@ -23,7 +23,7 @@ connection = engine.connect()
 
 class UdaConsumer:
 
-    def __init__(self, broker=KAFKA_DNS, topic=KAFKA_TOPIC, group_id="consumer"):
+    def __init__(self, broker=KAFKA_CONSUMER, topic=KAFKA_TOPIC, group_id="consumer"):
          self.broker = broker
          self.topic = topic
          self.group_id = group_id

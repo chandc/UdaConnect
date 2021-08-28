@@ -11,8 +11,6 @@ api = Namespace("UdaConnect", description="Connections via geolocation.")  # noq
 class ServiceResource(Resource):   
     def post(self):
         location = request.get_json()
-    # location['creation_time'] created by the database
-        json.dumps({"successfully read input: ":location})
         status = VisitService.create(location)
 
         return status
