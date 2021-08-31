@@ -5,5 +5,6 @@ data:
   DB_NAME: "connection"
   DB_HOST: "postgres-connection"
   DB_PORT: "5432"
+  PERSON_SERVICE_ENDPOINT: "http://person-api:5000/"
 metadata:
-  name: db-env-connection
+  name: db-connection-env

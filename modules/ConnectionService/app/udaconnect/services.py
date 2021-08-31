@@ -1,8 +1,11 @@
 import logging
 from datetime import datetime, timedelta
 from typing import Dict, List
+import requests
 
 from app import db
+from app.config import PERSON_SERVICE_ENDPOINT
+
 from app.udaconnect.models import Connection, Location, Person
 from app.udaconnect.schemas import ConnectionSchema, LocationSchema, PersonSchema
 from geoalchemy2.functions import ST_AsText, ST_Point
@@ -110,25 +113,24 @@ class LocationService:
 
         return new_location
 
+#
+# lets use REST API for now to cache all users,
+# will convert to gRPC later
 
 class PersonService:
     @staticmethod
-    def create(person: Dict) -> Person:
-        new_person = Person()
-        new_person.first_name = person["first_name"]
-        new_person.last_name = person["last_name"]
-        new_person.company_name = person["company_name"]
-
-        db.session.add(new_person)
-        db.session.commit()
-
-        return new_person
-
-    @staticmethod
-    def retrieve(person_id: int) -> Person:
-        person = db.session.query(Person).get(person_id)
-        return person
-
-    @staticmethod
     def retrieve_all() -> List[Person]:
-        return db.session.query(Person).all()
+        list_of_people = []
+        persons = requests.get(PERSON_SERVICE_ENDPOINT + "api/persons")
+        persons = persons.json()
+
+        for person in persons:
+            p = Person()
+            p.id = person['id']
+            p.first_name = person['first_name']
+            p.last_name = person['last_name']
+            p.company_name = person['company_name']
+            list_of_people.append(p)
+
+        # return db.session.query(Person).all()
+        return list_of_people
