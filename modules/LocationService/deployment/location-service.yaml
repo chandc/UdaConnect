@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: location-service
+  name: location-service
+spec:
+  ports:
+  - name: "9092"
+    port: 9092
+    targetPort: 9092
+  selector:
+    service: location-service
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: location-service
+  name: location-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: location-service
+  template:
+    metadata:
+      labels:
+        service: location-service
+    spec:
+      containers:
+      - image: chandc/location-service:latest
+        name: location-service
+        imagePullPolicy: Always
+      restartPolicy: Always

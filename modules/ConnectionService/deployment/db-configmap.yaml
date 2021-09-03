@@ -8,3 +8,4 @@ data:
   PERSON_SERVICE_ENDPOINT: "http://person-api:5000/"
 metadata:
   name: db-connection-env
+
