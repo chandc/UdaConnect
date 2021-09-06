@@ -35,6 +35,8 @@ spec:
         name: connection-api
         imagePullPolicy: Always
         env:
+        - name: RECOMMENDATIONS_HOST
+          value: personlookup-service
         - name: DB_USERNAME
           valueFrom:
             configMapKeyRef:

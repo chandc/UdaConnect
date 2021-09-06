@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  DB_USERNAME: "ct_location"
+  DB_NAME: "geoconnections"
+  DB_HOST: "postgres-location"
+  DB_PORT: "5432"
+  KAFKA_CONSUMER: kafkacluster.default.svc.cluster.local:9092
+  KAFKA_TOPIC: visits  
+metadata:
+  name: db-location-env

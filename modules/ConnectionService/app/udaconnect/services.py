@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict, List
 import requests
+import os
 
 from app import db
 from app.config import PERSON_SERVICE_ENDPOINT
@@ -11,8 +12,23 @@ from app.udaconnect.schemas import ConnectionSchema, LocationSchema, PersonSchem
 from geoalchemy2.functions import ST_AsText, ST_Point
 from sqlalchemy.sql import text
 
-logging.basicConfig(level=logging.WARNING)
+import grpc
+import person_pb2_grpc
+import person_pb2
+
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("udaconnect-api")
+#gRPC_host = os.getenv("RECOMMENDATIONS_HOST", "localhost")
+
+gRPC_host = '10.43.197.113'
+
+logger.info(gRPC_host)
+
+channel = grpc.insecure_channel(f"{gRPC_host}:50051")
+
+stub = person_pb2_grpc.PersonRequestStub(channel)
+
+
 
 
 class ConnectionService:
@@ -33,7 +49,7 @@ class ConnectionService:
         ).all()
 
         # Cache all users in memory for quick lookup
-        person_map: Dict[str, Person] = {person.id: person for person in PersonService.retrieve_all()}
+        person_map: Dict[str, Person] = {person.id: person for person in PersonServicegRPC.retrieve_all()}
 
         # Prepare arguments for queries
         data = []
@@ -114,10 +130,25 @@ class LocationService:
         return new_location
 
 #
-# lets use REST API for now to cache all users,
-# will convert to gRPC later
+# implemented both REST and gRPC  
+#
 
-class PersonService:
+class PersonServicegRPC:
+    @staticmethod
+    def retrieve_all() -> List[Person]:
+
+        PersonList = []
+        request = person_pb2.Empty()
+        response_iterator = stub.PersonLookup(request)
+
+        for response in response_iterator:
+            PersonList.append(response)
+        
+        logger.info(PersonList)
+        return PersonList
+
+
+class PersonServiceREST:
     @staticmethod
     def retrieve_all() -> List[Person]:
         list_of_people = []

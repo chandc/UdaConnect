@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: personlookup-service
+  name: personlookup-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: personlookup-service
+  template:
+    metadata:
+      labels:
+        app: personlookup-service
+    spec:
+      containers:
+      - image: chandc/personlookup-service:latest
+        name: personlookup-service
+        imagePullPolicy: Always
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: personlookup-service
+spec:
+    selector:
+        app: personlookup-service
+    ports:
+        - protocol: TCP
+          port: 50051
+          targetPort: 50051
