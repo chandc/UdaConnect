@@ -92,7 +92,19 @@ All REST API's have live Swagger documentation. For Person service, it is locate
 
 ![30005.swagger](docs/30005.swagger.png)
 
-The swagger JSON files for PersonService (30001) and ConnectionService (30002) are located in the /dcos directory under *30001_swagger.pdf* and *30002_swagger.pdf*.
+The swagger JSON files for PersonService (30001) and ConnectionService (30002) are presented below:
+
+![30001_swagger](docs/30001_swagger.png)
+
+
+
+![30002_swagger](docs/30002_swagger.png)
+
+
+
+
+
+
 
 Instead of using Postman to test the REST APIs, I chose Thunder Client which is a Visual Studio Code extension and is much simpler to use. To ingest new location data, I would post them to the URL http://localhost:30005/api/visits. The Thunder Client's user interface looks like this:
 
