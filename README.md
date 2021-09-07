@@ -82,7 +82,7 @@ and the cluster will contain a set of services described below:
 
 # Run the application
 
-To run the application, we can open a browser and point to the URL http://localhost:30000/ and reach the following user interface. Clicking at individual name will show that person's connection(s) at specified time range and geographical proximity.
+To run the application, we can open a browser and point to the URL http://localhost:30000/ and reach the following user interface. Clicking at an individual name will show that person's connection(s) at specified time range and geographical proximity.
 
 ![UdaConnect-App](docs/UdaConnect-App.png)
 
