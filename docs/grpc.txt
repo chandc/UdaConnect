@@ -1,0 +1,5 @@
+Since Connection and Person are now 2 separate micro services, 
+Connection needs to use message passing to fetch Person data from its database. 
+PersonLookup service is the conduit. It caches person data from Person first and 
+then serves them out on demand using gRPC protocol which has a higher performance than REST and 
+can be multithreaded for better scalability. 

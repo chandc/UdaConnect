@@ -1,0 +1,8 @@
+I have built three additional services to support this objective. Location data from mobile devices are ingested by 
+the Visit REST API endpoint and routed to the Kafka server asynchronously so users would not have to wait for the 
+time-consuming data persisting process to complete in the database.  Kafka has the capability to scale up to several GB/sec bandwidth 
+and incur less than 30 ms latency therefore justifying its use for processing large volume of data. 
+LocationService persists location data  in PostgresSQL through a post REST call to the Connection endpoint in the order 
+they are consumed from Kafka. 
+
+Effectively, we are using Kafka to hide the latency and contention caused by database insert operations. 
